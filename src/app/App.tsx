@@ -1,12 +1,16 @@
 import Button from '@components/ui/Button/Button';
 import Input from '@components/ui/Input/Input';
+import Textarea from '@components/ui/Textarea/Textarea';
 
 function App() {
   return (
     <>
       <h1>Редактор Резюме</h1>
       <Input placeholder="Должность" />
-      <Button variant="primary">Primary</Button>
+      <Textarea placeholder="Описание"></Textarea>
+      <Button variant="primary" size="lg">
+        Primary
+      </Button>
       <Button variant="accent" size="md">
         Accent
       </Button>
