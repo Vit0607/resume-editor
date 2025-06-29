@@ -10,7 +10,9 @@
       "@styles/*": ["styles/*"],
       "@types/*": ["types/*"],
       "@/*": ["*"]
-    }
+    },
+    "typeRoots": ["node_modules/@types", "src/@types"],
+    "types": ["react-beautiful-dnd", "uuid"]
   },
   "files": [],
   "references": [
