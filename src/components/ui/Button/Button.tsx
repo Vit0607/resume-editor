@@ -8,6 +8,7 @@ const Button = ({
   variant = 'primary',
   size = 'md',
   fullWidth = false,
+  className,
   ...props
 }: ButtonProps) => {
   return (
@@ -15,7 +16,7 @@ const Button = ({
       {...props}
       className={`${styles.button} ${styles[variant]} ${styles[size]} ${
         fullWidth ? styles.fullWidth : ''
-      }`}
+      } ${className}`}
       onClick={onClick}
     >
       {children}

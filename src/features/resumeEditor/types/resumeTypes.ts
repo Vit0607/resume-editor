@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
 
-// Перечисление типов секций
 export type SectionType =
   | 'experience'
   | 'education'
@@ -8,7 +7,6 @@ export type SectionType =
   | 'certificates'
   | 'about';
 
-// Соответствие типа секции и её отображаемого заголовка
 export const SECTION_TITLE_MAP: Record<SectionType, string> = {
   experience: 'Опыт работы',
   education: 'Образование',
@@ -17,13 +15,11 @@ export const SECTION_TITLE_MAP: Record<SectionType, string> = {
   certificates: 'Сертификаты'
 };
 
-// Базовый интерфейс для любой секции резюме
-export interface BaseSection {
+interface BaseSection {
   id: string;
   type: SectionType;
 }
 
-// Конкретные интерфейсы для каждого типа секции
 export interface ExperienceSection extends BaseSection {
   type: 'experience';
   jobTitle: string;
@@ -54,7 +50,6 @@ export interface AboutSection extends BaseSection {
   text: string;
 }
 
-// Объединенный тип, который может быть любой из вышеперечисленных секций
 export type ResumeSection =
   | ExperienceSection
   | EducationSection
@@ -62,43 +57,53 @@ export type ResumeSection =
   | CertificatesSection
   | AboutSection;
 
-// Функция для создания новой пустой секции заданного типа
-export const createNewSection = <T extends SectionType>(
-  type: T
-): Extract<ResumeSection, { type: T }> => {
+export interface ResumeData {
+  name: string;
+  position: string;
+  sections: ResumeSection[];
+}
+
+export const createNewSection = (type: SectionType): ResumeSection => {
   const base = { id: uuidv4(), type };
+
   switch (type) {
     case 'experience':
       return {
         ...base,
+        type: 'experience',
         jobTitle: '',
         company: '',
         period: '',
         description: ''
-      } as Extract<ResumeSection, { type: T }>;
+      };
     case 'education':
       return {
         ...base,
+        type: 'education',
         institution: '',
         specialty: '',
         period: ''
-      } as Extract<ResumeSection, { type: T }>;
+      };
     case 'skills':
       return {
         ...base,
+        type: 'skills',
         skills: ''
-      } as Extract<ResumeSection, { type: T }>;
+      };
     case 'certificates':
       return {
         ...base,
+        type: 'certificates',
         name: ''
-      } as Extract<ResumeSection, { type: T }>;
+      };
     case 'about':
       return {
         ...base,
+        type: 'about',
         text: ''
-      } as Extract<ResumeSection, { type: T }>;
+      };
     default:
-      throw new Error('Unknown section type');
+      const _exhaustiveCheck: never = type;
+      throw new Error(`Unknown section type: ${_exhaustiveCheck}`);
   }
 };

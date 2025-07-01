@@ -1,9 +1,10 @@
-import React from 'react';
 import {
   DragDropContext,
   Droppable,
   Draggable,
-  type DropResult
+  type DropResult,
+  type DraggableProvided,
+  type DraggableStateSnapshot
 } from 'react-beautiful-dnd';
 
 import Button from '@components/ui/Button/Button';
@@ -21,6 +22,7 @@ import {
   type AboutSection
 } from '@features/resumeEditor/types/resumeTypes';
 import styles from './EditorPanel.module.scss';
+import { useState } from 'react';
 
 // Вспомогательный компонент: Форма редактирования для ОДНОЙ секции
 interface SectionFormEditorProps {
@@ -174,7 +176,7 @@ export const EditorPanel: React.FC<EditorPanelProps> = ({
   onMoveSection,
   onAISuggest
 }) => {
-  const [sectionToAddType, setSectionToAddType] = React.useState<string>('');
+  const [sectionToAddType, setSectionToAddType] = useState<string>('');
 
   const sectionTypeOptions = (
     Object.keys(SECTION_TITLE_MAP) as SectionType[]
@@ -214,7 +216,11 @@ export const EditorPanel: React.FC<EditorPanelProps> = ({
       <div className={styles.sectionListWrapper}>
         <h3>Секции</h3>
         <DragDropContext onDragEnd={onMoveSection}>
-          <Droppable droppableId="sections">
+          <Droppable
+            droppableId="sections"
+            isDropDisabled={false}
+            isCombineEnabled={false}
+          >
             {provided => (
               <div
                 {...provided.droppableProps}
@@ -231,15 +237,19 @@ export const EditorPanel: React.FC<EditorPanelProps> = ({
                     key={section.id}
                     draggableId={section.id}
                     index={index}
+                    isDragDisabled={false}
                   >
-                    {provided => (
+                    {(
+                      provided: DraggableProvided,
+                      snapshot: DraggableStateSnapshot
+                    ) => (
                       <div
                         ref={provided.innerRef}
                         {...provided.draggableProps}
                         {...provided.dragHandleProps}
                         className={`${styles.sectionItem} ${
                           activeSection?.id === section.id ? styles.active : ''
-                        }`}
+                        } ${snapshot.isDragging ? styles.dragging : ''}`}
                         onClick={() => onSetActiveSection(section.id)}
                       >
                         <span>{SECTION_TITLE_MAP[section.type]}</span>
@@ -277,7 +287,7 @@ export const EditorPanel: React.FC<EditorPanelProps> = ({
           <Button
             variant="accent"
             onClick={() => onSetActiveSection(null)}
-            className={styles.hideEditorBtn}
+            fullWidth={true}
           >
             Скрыть редактор
           </Button>

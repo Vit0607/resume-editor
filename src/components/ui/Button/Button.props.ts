@@ -6,4 +6,5 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'accent' | 'danger';
   size?: 'md' | 'lg';
   fullWidth?: boolean;
+  // className?: string;
 }

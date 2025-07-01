@@ -1,0 +1,186 @@
+.wrapper {
+  padding: 1rem;
+  height: 100vh;
+  overflow-y: auto;
+  background-color: var(--color-bg);
+
+  .downloadButtonContainer {
+    margin-bottom: 1.25rem;
+    text-align: right;
+    padding-right: 0.9375em;
+  }
+
+  .panel {
+    background-color: var(--color-white);
+    padding: 0.8in;
+    width: 8.5in;
+    min-height: 11in;
+    margin: 0 auto;
+    box-shadow: 0 0 0.9375em rgba(0, 0, 0, 0.1);
+    color: var(--color-text);
+    font-size: 14px;
+    font-family: Arial, sans-serif;
+
+    @media print {
+      box-shadow: none;
+      margin: 0;
+      padding: 0.8in !important;
+      min-height: auto;
+      width: 100% !important;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 0;
+
+      .nameInput,
+      .positionInput {
+        display: block;
+        width: 100%;
+        border: none;
+        background: transparent;
+        text-align: center;
+        font-family: Arial, sans-serif;
+        padding: 5px;
+        margin: 0;
+        transition: all 0.2s;
+      }
+
+      .nameInput {
+        font-size: 36px;
+        font-weight: bold;
+        color: var(--color-primary-dark);
+        text-transform: uppercase;
+        margin-bottom: 10px;
+      }
+
+      .positionInput {
+        font-size: 20px;
+        font-weight: 500;
+        color: var(--color-gray-700);
+      }
+    }
+
+    .emptyPreview {
+      text-align: center;
+      color: var(--color-gray-700);
+      margin-top: 3.125rem;
+      font-size: 14pt;
+    }
+
+    .sectionContainer {
+      margin-top: 30px;
+      margin-bottom: 0;
+    }
+
+    .section {
+      .sectionTitle {
+        font-size: 20px;
+        color: var(--color-primary);
+        border-bottom: 2px solid var(--color-primary);
+        padding-bottom: 10px;
+        margin-bottom: 15px;
+        text-transform: uppercase;
+        font-weight: bold;
+      }
+
+      .sectionContent {
+        p,
+        h3,
+        span {
+          line-height: 1.6;
+          color: var(--color-text);
+          margin: 0 0 10px;
+        }
+
+        h3 {
+          font-size: 18px;
+          font-weight: bold;
+          margin-bottom: 5px;
+        }
+
+        .experienceItem,
+        .educationItem {
+          margin-bottom: 15px;
+
+          span {
+            font-size: 16px;
+            color: var(--color-gray-700);
+            display: block;
+            font-style: italic;
+            margin-bottom: 5px;
+          }
+
+          p {
+            font-size: 16px;
+            margin-top: 8px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.staticText {
+  display: block;
+  width: 100%;
+  border: none !important;
+  background: transparent !important;
+  cursor: default !important;
+  pointer-events: none !important;
+  user-select: none !important;
+  padding: 5px;
+  margin: 0;
+
+  &:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+}
+
+.pdfSectionContainer {
+  margin-top: 40px !important;
+}
+
+// Специальные стили для печати
+@media print {
+  body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .wrapper {
+    padding: 0 !important;
+    background: white !important;
+  }
+
+  .downloadButtonContainer {
+    display: none !important;
+  }
+
+  .panel {
+    padding: 0.8in !important;
+    width: 100% !important;
+    box-shadow: none !important;
+    background: white !important;
+    margin: 0 !important;
+
+    * {
+      color: black !important;
+      background: transparent !important;
+    }
+
+    .sectionContainer {
+      margin-top: 40px !important;
+    }
+
+    .sectionTitle {
+      color: #3498db !important;
+      border-bottom: 2px solid #3498db !important;
+      text-transform: uppercase !important;
+    }
+  }
+}
